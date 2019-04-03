@@ -9,7 +9,8 @@ enum token_struct_type {
         NUMBER = 256,
         IDENTIFIER,
         OPERATOR,
-        WHITESPACE
+        WHITESPACE,
+        OTHER
 };
 
 struct token_struct {

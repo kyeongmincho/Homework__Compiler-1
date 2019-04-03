@@ -22,6 +22,7 @@ operator [+\-\*/]
 {id} { return IDENTIFIER; }
 {operator} { return OPERATOR; }
 {ws} { return WHITESPACE; }
+. { return OTHER; }
 
 %%
 
