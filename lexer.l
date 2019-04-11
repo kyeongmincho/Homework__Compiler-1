@@ -51,6 +51,7 @@ int main()
                         break;
                 default:
                         printf("Error: %s not recognized\n", yytext);
+                        goto out;
                 }
         }
 
@@ -68,5 +69,6 @@ int main()
                 printf("%s ", temp_tok->str);
         }
 
+out:
         return 0;
 }
