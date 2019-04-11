@@ -26,7 +26,9 @@ operator [+\-\*/]
 
 %%
 
+/* 없으면 "ld: symbol(s) not found for architecture x86_64" 컴파일 에러 발생 */
 int yywrap() {}
+
 int main()
 {
         int token;
@@ -35,6 +37,7 @@ int main()
 
         list_init(&in_list);
 
+        /* 숫자, 식별자, 연산자, 공백은 토큰 리스트에 삽입된다. */
         while (token = yylex()) {
                 switch (token) {
                 case NUMBER:

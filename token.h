@@ -1,3 +1,9 @@
+/*
+ * 토큰과 관련된 구조체와
+ * 음수 처리 함수, infix_to_postfix 함수,
+ * 공백 제거 함수, 그리고 간단한 타입 체크 함수를 제공합니다.
+ */
+
 #ifndef TOKEN_H
 #define TOKEN_H
 
@@ -14,9 +20,13 @@ enum token_struct_type {
 };
 
 struct token_struct {
+        /* 토큰이 나타내는 문자열 */
         char str[NR_TOKEN_STR];
+
+        /* 토큰의 타입 */
         int tok_type;
 
+        /* 토큰 리스트의 노드 */
         struct list_node tok_list;
 };
 

@@ -3,11 +3,30 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/* infix_to_postfix:
+ * List를 기반으로 구현한 중위 연산 수식을 후위 연산 수식으로 바꾸는 함수 (+, - 만)
+ *
+ * 아이디어는 다음과 같습니다:
+ * 수식이 주어졌을 때 가장 오른쪽의 연산자와 우항은 순서를 바꾸고 좌항식은 재귀적으로 호출됩니다.
+ *
+ * Fixpoint infix_to_postfix (expression:수식) :=
+ *     match expression with
+ *     | empty => ""
+ *     | Single => "Single" (s.t. Single: 단항식)
+ *     | Left Oper Right => "infix_to_postfix(Left) Right Oper"
+ *                          (s.t. Left: 좌항식, Oper: +-연산자, Right: 우항)
+ *     end.
+ *
+ * 예를 들어,
+ * "a + b + c" => "infix_to_postfix(a + b) c +"
+ * 로 표현됩니다.
+ */
 struct list_node *infix_to_postfix(struct list_node *in_list)
 {
         struct token_struct *right, *oper;
         struct list_node *left_list;
 
+        /* empty case 인지 체크 */
         if (list_empty(in_list)) {
                 left_list = in_list;
                 goto out;
@@ -23,10 +42,13 @@ struct list_node *infix_to_postfix(struct list_node *in_list)
                 goto err;
         }
 
+        /* 단항식일 경우 그대로 리턴 */
         if (in_list->prev->prev == in_list) {
                 left_list = in_list;
                 goto out;
         }
+
+        /* 수식은 단항식이 아니다. 왼쪽에는 연산자가 있어야 한다. */
 
         oper = container_of(in_list->prev->prev, struct token_struct, tok_list);
 //        printf("%s\n", oper->str);
@@ -42,9 +64,14 @@ struct list_node *infix_to_postfix(struct list_node *in_list)
                 goto err;
         }
 
+        /* 연산자와 우항을 수식에서 제거 */
         list_delete(&right->tok_list);
         list_delete(&oper->tok_list);
+
+        /* 좌항식 재귀 */
         left_list = infix_to_postfix(in_list);
+
+        /* 좌항식의 결과에 우항과 연산자를 순서대로 append */
         list_insert(&right->tok_list, left_list->prev);
         list_insert(&oper->tok_list, left_list->prev);
 
