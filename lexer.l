@@ -38,7 +38,7 @@ int main()
         list_init(&in_list);
 
         /* 숫자, 식별자, 연산자, 공백은 토큰 리스트에 삽입된다. */
-        while (token = yylex()) {
+        while ((token = yylex())) {
                 switch (token) {
                 case NUMBER:
                 case IDENTIFIER:

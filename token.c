@@ -9,17 +9,12 @@
  * 아이디어는 다음과 같습니다:
  * 수식이 주어졌을 때 가장 오른쪽의 연산자와 우항은 순서를 바꾸고 좌항식은 재귀적으로 호출됩니다.
  *
- * Fixpoint infix_to_postfix (expression:수식) :=
- *     match expression with
- *     | empty => ""
- *     | Single => "Single" (s.t. Single: 단항식)
- *     | Left Oper Right => "infix_to_postfix(Left) Right Oper"
- *                          (s.t. Left: 좌항식, Oper: +-연산자, Right: 우항)
- *     end.
- *
  * 예를 들어,
  * "a + b + c" => "infix_to_postfix(a + b) c +"
  * 로 표현됩니다.
+ *
+ * 함수 아이디어에 대한 자세한 설명은 보고서를 참고하시기 바랍니다.
+ * 특별히 이 함수에선 빈 리스트는 그대로 반환합니다.
  */
 struct list_node *infix_to_postfix(struct list_node *in_list)
 {
