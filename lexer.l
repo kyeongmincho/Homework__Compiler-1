@@ -40,18 +40,24 @@ int main()
                 case NUMBER:
                 case IDENTIFIER:
                 case OPERATOR:
+                case WHITESPACE:
                         temp_tok = malloc(sizeof(struct token_struct));
                         strcpy(temp_tok->str, yytext);
                         temp_tok->tok_type = token;
                         list_insert(&temp_tok->tok_list, in_list.prev);
-                        break;
-                case WHITESPACE:
                         break;
                 default:
                         printf("Error: %s not recognized\n", yytext);
                 }
         }
 
+        /* 토큰 리스트에서 음수 부호로 처리될 수 있는 "-"를 변환 */
+        chg_minoper_neg(&in_list);
+
+        /* 토큰 리스트에 있는 모든 공백을 제거 */
+        rmv_whtspc(&in_list);
+
+        /* infix 토큰 리스트를 postfix 토큰 리스트로 변환 */
         post_list = infix_to_postfix(&in_list);
 
         for_each_list_node(*post_list) {

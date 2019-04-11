@@ -36,8 +36,13 @@ static inline int is_number(struct token_struct *tok)
         return (tok->tok_type == NUMBER);
 }
 
-struct list_node *infix_to_postfix(struct list_node *);
-void chg_minoper_neg(struct token_struct *, struct token_struct *);
+static inline int is_whtspc(struct token_struct *tok)
+{
+        return (tok->tok_type == WHITESPACE);
+}
 
+struct list_node *infix_to_postfix(struct list_node *);
+void chg_minoper_neg(struct list_node *);
+void rmv_whtspc(struct list_node *);
 
 #endif // TOKEN_H
