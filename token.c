@@ -37,8 +37,8 @@ struct list_node *infix_to_postfix(struct list_node *in_list)
 //        printf("%d\n", right->tok_type);
 
         if (!is_value(right)) {
-                printf("Not an infix expression due to:\n\t-> %s is not a "
-                       "value.", right->str);
+                printf("Error: Not an infix expression due to:\n\t-> %s is not"
+                       " a value.\n", right->str);
                 goto err;
         }
 
@@ -54,13 +54,13 @@ struct list_node *infix_to_postfix(struct list_node *in_list)
 //        printf("%s\n", oper->str);
 
         if (!is_operator(oper)) {
-                printf("Not an infix expression because:\n\t-> %s is not "
-                       "an operator.", oper->str);
+                printf("Error: Not an infix expression because:\n\t-> %s is not"
+                       " an operator.\n", oper->str);
                 goto err;
         }
 
         if (in_list->prev->prev->prev == in_list) {
-                printf("Incomplete infix expression.");
+                printf("Error: Incomplete infix expression.\n");
                 goto err;
         }
 
