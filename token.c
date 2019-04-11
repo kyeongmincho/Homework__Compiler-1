@@ -33,8 +33,6 @@ struct list_node *infix_to_postfix(struct list_node *in_list)
         }
 
         right = container_of(in_list->prev, struct token_struct, tok_list);
-//        printf("\n%s\n", right->str);
-//        printf("%d\n", right->tok_type);
 
         if (!is_value(right)) {
                 printf("Error: Not an infix expression due to:\n\t-> %s is not"
@@ -51,7 +49,6 @@ struct list_node *infix_to_postfix(struct list_node *in_list)
         /* 수식은 단항식이 아니다. 왼쪽에는 연산자가 있어야 한다. */
 
         oper = container_of(in_list->prev->prev, struct token_struct, tok_list);
-//        printf("%s\n", oper->str);
 
         if (!is_operator(oper)) {
                 printf("Error: Not an infix expression because:\n\t-> %s is not"
